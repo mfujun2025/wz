@@ -56,6 +56,7 @@
   min-width: 0;
 }
 
+/* 标题行：域名徽标的光晕限制在本行内，不溢出到按钮 */
 .wz-ad-title {
   display: block;
   font-size: 22px;
@@ -69,6 +70,41 @@
 .wz-ad-title em {
   font-style: normal;
   color: #E1A86A;
+}
+
+/* 中文域名徽标：淡金底 + 描边 + 微光晕，视觉上独立成一个"标签" */
+.wz-ad-domain {
+  display: inline-block;
+  padding: 2px 12px;
+  margin-right: 12px;
+  border-radius: 7px;
+  background: rgba(225, 168, 106, 0.18);
+  border: 1px solid rgba(243, 206, 154, 0.75);
+  color: #F7D9AC;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  box-shadow: 0 0 14px rgba(225, 168, 106, 0.35), inset 0 0 10px rgba(225, 168, 106, 0.12);
+  text-shadow: 0 0 8px rgba(225, 168, 106, 0.5);
+  /* 低调呼吸光效：3.2s 一个循环，幅度很小，只为引导视线 */
+  animation: wz-ad-glow 3.2s ease-in-out infinite;
+}
+
+@keyframes wz-ad-glow {
+  0%, 100% { box-shadow: 0 0 14px rgba(225, 168, 106, 0.35), inset 0 0 10px rgba(225, 168, 106, 0.12); }
+  50%      { box-shadow: 0 0 22px rgba(225, 168, 106, 0.62), inset 0 0 14px rgba(225, 168, 106, 0.2); }
+}
+
+/* 尊重系统「减少动态效果」设置：用户关闭动画时不播放 */
+@media (prefers-reduced-motion: reduce) {
+  .wz-ad-domain { animation: none; }
+}
+
+/* 描述里的域名重复出现时：只加粗变色，不加底框，避免抢戏 */
+.wz-ad-domain-plain {
+  color: #F3CE9A;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .wz-ad-desc {
@@ -136,6 +172,12 @@
     line-height: 1.5;
   }
 
+  /* 小屏关掉呼吸光效：静态徽标更清晰，也避免光晕糊到按钮上 */
+  .wz-ad-domain {
+    animation: none;
+    margin-right: 8px;
+  }
+
   .wz-ad-desc {
     font-size: 14px;
   }
@@ -145,10 +187,15 @@
     padding: 13px 20px;
   }
 
+  /* 水波纹：小屏卡片变高，缩小圆并压到右下角，避免圆弧横穿按钮 */
   .wz-ad-link::after {
-    right: -120px;
-    width: 240px;
-    height: 240px;
+    right: -90px;
+    top: auto;
+    bottom: -90px;
+    transform: none;
+    width: 200px;
+    height: 200px;
+    opacity: 0.7;
   }
 }
 
