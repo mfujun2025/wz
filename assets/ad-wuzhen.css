@@ -1,0 +1,198 @@
+/* ============================================================
+   乌镇站 · 广告位组件样式（水乡风格）
+   文件：assets/ad-wuzhen.css
+   说明：类名统一 wz-ad- 前缀，不与站点现有样式冲突
+   ============================================================ */
+
+/* 容器：与站点 .container 同宽，居中 */
+.wz-ad-banner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 横幅卡片本体：深绿→墨绿渐变，赭金描边，呼应水乡黛瓦 */
+.wz-ad-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 26px 34px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #fff;
+  overflow: hidden;
+  background: linear-gradient(120deg, #2A5F4A 0%, #1F4A39 55%, #17392C 100%);
+  border: 1px solid rgba(225, 168, 106, 0.35);
+  box-shadow: 0 6px 22px rgba(42, 95, 74, 0.22);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.wz-ad-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(42, 95, 74, 0.32);
+}
+
+/* 水波纹装饰：右侧同心圆，模拟水面涟漪 */
+.wz-ad-link::after {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  width: 320px;
+  height: 320px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(225, 168, 106, 0.16) 0%, rgba(225, 168, 106, 0.06) 40%, transparent 70%);
+  pointer-events: none;
+}
+
+/* 左侧文字区 */
+.wz-ad-text {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.wz-ad-title {
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+/* 标题里的高亮词：赭金色 */
+.wz-ad-title em {
+  font-style: normal;
+  color: #E1A86A;
+}
+
+.wz-ad-desc {
+  display: block;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* 右侧行动区 */
+.wz-ad-action {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.wz-ad-btn {
+  display: inline-block;
+  padding: 13px 30px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #B17F4A, #E1A86A);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(177, 127, 74, 0.4);
+  transition: filter 0.25s ease;
+}
+
+.wz-ad-link:hover .wz-ad-btn {
+  filter: brightness(1.08);
+}
+
+/* 角标：合规必须可见 */
+.wz-ad-tag {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  z-index: 2;
+  padding: 1px 8px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* ---------------- 移动端 ---------------- */
+@media (max-width: 768px) {
+  .wz-ad-banner {
+    padding: 0 15px;
+  }
+
+  .wz-ad-link {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 18px;
+    padding: 24px 20px 22px;
+  }
+
+  .wz-ad-title {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .wz-ad-desc {
+    font-size: 14px;
+  }
+
+  .wz-ad-btn {
+    display: block;
+    padding: 13px 20px;
+  }
+
+  .wz-ad-link::after {
+    right: -120px;
+    width: 240px;
+    height: 240px;
+  }
+}
+
+/* ---------------- 文章内嵌版（窄容器适配） ---------------- */
+/* 文章页正文容器已限宽 820px，广告位不再重复限宽和内边距 */
+.wz-ad-inarticle {
+  max-width: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+/* ---------------- 侧边栏竖版（备用形态） ---------------- */
+.wz-ad-side {
+  display: block;
+  position: relative;
+  padding: 24px 22px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #fff;
+  overflow: hidden;
+  background: linear-gradient(160deg, #2A5F4A 0%, #1B4034 100%);
+  border: 1px solid rgba(225, 168, 106, 0.3);
+  box-shadow: 0 6px 22px rgba(42, 95, 74, 0.2);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  text-align: center;
+}
+
+.wz-ad-side:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(42, 95, 74, 0.3);
+}
+
+.wz-ad-side .wz-ad-title {
+  font-size: 19px;
+  margin-bottom: 10px;
+}
+
+.wz-ad-side .wz-ad-desc {
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.wz-ad-side .wz-ad-btn {
+  display: block;
+  padding: 12px 18px;
+  font-size: 15px;
+}
