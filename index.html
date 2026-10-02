@@ -26,6 +26,12 @@ body{background:#F6F3EE;color:#222;line-height:1.8}
 .nav a{margin-left:28px;text-decoration:none;color:#333;font-size:15px;font-weight:500;transition:color 0.3s}
 .nav a:hover{color:#2A5F4A}
 
+/* 导航右侧操作区（400.中国 按钮 + 汉堡按钮） */
+.wz-nav-right{display:flex;align-items:center}
+/* 汉堡菜单：桌面端完全隐藏 */
+.wz-nav-cb{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.wz-nav-burger{display:none}
+
 /* 首屏横幅 */
 .banner{margin-top:72px;height:62vh;min-height:420px;background:linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),url(https://picui.ogmua.cn/s1/2026/03/22/69bf835712a01.webp) center center / cover no-repeat;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff}
 .banner-box{max-width:820px;padding:0 20px}
@@ -74,9 +80,35 @@ body{background:#F6F3EE;color:#222;line-height:1.8}
 @media(max-width:768px){
   .banner h1{font-size:34px}
   .title{font-size:28px}
-  .nav{display:none}
   .strategy-img{height:200px}
   .sec-img{height:160px}
+
+  /* 汉堡按钮：手机上显示 */
+  .wz-nav-burger{
+    display:flex;align-items:center;justify-content:center;
+    width:42px;height:42px;margin-left:8px;border-radius:10px;
+    color:#2A5F4A;font-size:19px;line-height:1;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;transition:background .2s;
+  }
+  .wz-nav-burger:active{background:rgba(42,95,74,.1)}
+
+  /* 菜单改为下拉面板：不再隐藏，所有入口（含自由行攻略）都能点到 */
+  .nav{
+    display:none;position:absolute;top:72px;left:0;width:100%;
+    flex-direction:column;gap:0;background:#fff;
+    border-bottom:1px solid #E1D7CE;box-shadow:0 10px 24px rgba(0,0,0,.1);
+    padding:6px 0;z-index:998;
+  }
+  .nav a{
+    margin-left:0;padding:14px 22px;font-size:16px;
+    border-bottom:1px solid #F5EFE8;
+  }
+  .nav a:last-child{border-bottom:none}
+  .nav a:active{background:#F9F6F0}
+
+  /* 勾选后展开菜单，汉堡图标切成叉号 */
+  .wz-nav-cb:checked ~ .nav{display:flex}
+  .wz-nav-cb:checked ~ .wz-nav-right .fa-bars::before{content:"\f00d"}
 }
 </style>
 <!-- 广告位组件样式 -->
@@ -88,6 +120,7 @@ body{background:#F6F3EE;color:#222;line-height:1.8}
 <div class="header">
 <div class="container">
 <a href="#" class="logo">乌镇<span>.中国</span></a>
+<input type="checkbox" id="wzNavToggle" class="wz-nav-cb">
 <div class="nav">
 <a href="#about">关于乌镇</a>
 <a href="#strategy">旅游攻略</a>
@@ -95,7 +128,10 @@ body{background:#F6F3EE;color:#222;line-height:1.8}
 <a href="#tel">常用电话</a>
 <a href="/blog/wuzhen-zijixing-shendu-gonglve-2026/">自由行攻略</a>
 </div>
+<div class="wz-nav-right">
 <a class="wz-nav-cta" href="https://400.xn--fiqs8s/" target="_blank" rel="noopener noreferrer sponsored" aria-label="400.中国 全国统一服务热线">400.中国 <i class="fa-solid fa-arrow-right"></i></a>
+<label for="wzNavToggle" class="wz-nav-burger" aria-label="展开导航菜单"><i class="fa-solid fa-bars"></i></label>
+</div>
 </div>
 </div>
 
@@ -317,6 +353,18 @@ body{background:#F6F3EE;color:#222;line-height:1.8}
 <p style="margin-top:8px">本站信息整理自公开渠道，出行前请以景区官方公告为准。</p>
 </div>
 </div>
+
+<script>
+/* 移动端汉堡菜单：点击任意菜单项后自动收起，避免遮挡跳转后的内容 */
+(function () {
+  var cb = document.getElementById('wzNavToggle');
+  if (!cb) return;
+  var links = document.querySelectorAll('.nav a');
+  for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', function () { cb.checked = false; });
+  }
+})();
+</script>
 
 </body>
 </html>
