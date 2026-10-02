@@ -25,6 +25,12 @@ body{background:#F6F3EE;color:#222;line-height:1.8}
 .nav a{margin-left:28px;text-decoration:none;color:#333;font-size:15px;font-weight:500;transition:color 0.3s}
 .nav a:hover{color:#2A5F4A}
 
+/* 导航右侧操作区（400.中国 按钮 + 汉堡按钮） */
+.wz-nav-right{display:flex;align-items:center}
+/* 汉堡菜单：桌面端完全隐藏 */
+.wz-nav-cb{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.wz-nav-burger{display:none}
+
 /* 文章头部 */
 .article-hero{margin-top:72px;padding:60px 0 40px;background:linear-gradient(135deg,#2A5F4A,#3D7A60);color:#fff;text-align:center}
 .article-hero h1{font-size:34px;line-height:1.45;font-weight:600;max-width:860px;margin:0 auto 18px}
@@ -64,7 +70,33 @@ body{background:#F6F3EE;color:#222;line-height:1.8}
   .article-hero h1{font-size:23px}
   .article{padding:28px 22px}
   .article h2{font-size:20px}
-  .nav{display:none}
+
+  /* 汉堡按钮：手机上显示 */
+  .wz-nav-burger{
+    display:flex;align-items:center;justify-content:center;
+    width:42px;height:42px;margin-left:8px;border-radius:10px;
+    color:#2A5F4A;font-size:19px;line-height:1;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;transition:background .2s;
+  }
+  .wz-nav-burger:active{background:rgba(42,95,74,.1)}
+
+  /* 菜单改为下拉面板：不再隐藏，所有入口都能点到 */
+  .nav{
+    display:none;position:absolute;top:72px;left:0;width:100%;
+    flex-direction:column;gap:0;background:#fff;
+    border-bottom:1px solid #E1D7CE;box-shadow:0 10px 24px rgba(0,0,0,.1);
+    padding:6px 0;z-index:998;
+  }
+  .nav a{
+    margin-left:0;padding:14px 22px;font-size:16px;
+    border-bottom:1px solid #F5EFE8;
+  }
+  .nav a:last-child{border-bottom:none}
+  .nav a:active{background:#F9F6F0}
+
+  /* 勾选后展开菜单，汉堡图标切成叉号 */
+  .wz-nav-cb:checked ~ .nav{display:flex}
+  .wz-nav-cb:checked ~ .wz-nav-right .fa-bars::before{content:"\f00d"}
 }
 </style>
 <!-- 广告位组件样式 -->
@@ -76,13 +108,16 @@ body{background:#F6F3EE;color:#222;line-height:1.8}
 <div class="header">
 <div class="container">
 <a href="/" class="logo">乌镇<span>.中国</span></a>
+<input type="checkbox" id="wzNavToggle" class="wz-nav-cb">
 <div class="nav">
 <a href="/#about">关于乌镇</a>
 <a href="/#strategy">旅游攻略</a>
 <a href="/#traffic">景区交通</a>
 <a href="/#tel">常用电话</a>
 </div>
+<div class="wz-nav-right">
 <a class="wz-nav-cta" href="https://400.xn--fiqs8s/" target="_blank" rel="noopener noreferrer sponsored" aria-label="400.中国 全国统一服务热线">400.中国 <i class="fa-solid fa-arrow-right"></i></a>
+<label for="wzNavToggle" class="wz-nav-burger" aria-label="展开导航菜单"><i class="fa-solid fa-bars"></i></label>
 </div>
 </div>
 
@@ -272,6 +307,18 @@ body{background:#F6F3EE;color:#222;line-height:1.8}
     }
   ]
 }
+</script>
+
+<script>
+/* 移动端汉堡菜单：点击任意菜单项后自动收起，避免遮挡跳转后的内容 */
+(function () {
+  var cb = document.getElementById('wzNavToggle');
+  if (!cb) return;
+  var links = document.querySelectorAll('.nav a');
+  for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', function () { cb.checked = false; });
+  }
+})();
 </script>
 
 </body>
